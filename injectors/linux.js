@@ -53,8 +53,8 @@ exports.getAppDir = async (platform) => {
       });
 
       const askPath = () => new Promise(resolve => readlineInterface.question('> ', resolve));
-      console.log(`${AnsiEscapes.YELLOW}Failed to locate Discord Canary installation folder.${AnsiEscapes.RESET}`, '\n');
-      console.log('Please provide the path of your Discord Canary installation folder');
+      console.log(`${AnsiEscapes.YELLOW}Failed to locate Discord${platform  == 'canary' ? ' Canary' : ''} installation folder.${AnsiEscapes.RESET}`, '\n');
+      console.log(`Please provide the path of your Discord${platform  == 'canary' ? ' Canary' : ''} installation folder`);
       discordPath = await askPath();
       readlineInterface.close();
 
