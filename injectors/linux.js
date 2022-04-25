@@ -33,7 +33,7 @@ const KnownLinuxPaths = {
 
 const ProcessRegex = {
 	stable: /discord$/i,
-	ptb: /discord-ptb$/i,
+	ptb: /discord-?ptb$/i,
 	canary: /discord-?canary$/i
 }
 
