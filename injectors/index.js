@@ -22,10 +22,11 @@ try {
   }
 }
 
-const VALID_PLATFORMS = ['stable', 'ptb', 'canary'];
+const VALID_PLATFORMS = ['stable', 'ptb', 'canary', 'dev', 'development'];
 
 (async () => {
   let platform = (process.argv.find(x => VALID_PLATFORMS.includes(x.toLowerCase())) || 'canary').toLowerCase();
+  if (platform === 'development') platform = 'dev';
 
   if (platform !== 'canary' && process.argv[2] === 'inject') {
     console.log(`${AnsiEscapes.BOLD}${AnsiEscapes.YELLOW}WARNING: using non-canary versions of Discord is not supported.${AnsiEscapes.RESET}`);

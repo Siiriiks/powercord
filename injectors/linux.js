@@ -28,6 +28,13 @@ const KnownLinuxPaths = {
 		'/opt/discord-canary',
 		'/opt/DiscordCanary',
 		`${homedir}/.local/bin/DiscordCanary` // https://github.com/powercord-org/powercord/pull/370
+	]),
+	dev: Object.freeze([
+		'/usr/share/discord-development',
+		'/usr/lib64/discord-development',
+		'/opt/discord-development',
+		'/opt/DiscordDevelopment',
+		`${homedir}/.local/bin/DiscordDevelopment`
 	])
 };
 

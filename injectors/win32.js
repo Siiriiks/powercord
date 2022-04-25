@@ -5,6 +5,7 @@ const PATHS = {
 	stable: 'Discord',
 	ptb: 'DiscordPTB',
 	canary: 'DiscordCanary',
+	dev: 'DiscordDevelopment'
 };
 
 exports.getAppDir = async (platform) => {
