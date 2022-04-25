@@ -4,7 +4,8 @@ require('../polyfills'); // And then do stuff
 
 const { join } = require('path');
 const { readFile, writeFile } = require('fs').promises;
-const { BasicMessages } = require('./log');
+const readline = require('readline');
+const { AnsiEscapes, BasicMessages } = require('./log');
 const main = require('./main.js');
 
 let platformModule;
@@ -21,9 +22,24 @@ try {
   }
 }
 
+const VALID_PLATFORMS = ['stable', 'ptb', 'canary'];
+
 (async () => {
+  let platform = (process.argv.find(x => VALID_PLATFORMS.includes(x.toLowerCase())) || 'canary').toLowerCase();
+
+  if (platform !== 'canary' && process.argv[2] === 'inject') {
+    console.log(`${AnsiEscapes.BOLD}${AnsiEscapes.YELLOW}WARNING: using non-canary versions of Discord is not supported.${AnsiEscapes.RESET}`);
+    console.log(`${AnsiEscapes.YELLOW}These versions may not work properly and support will not be given.${AnsiEscapes.RESET}`);
+    let response = await promptYesNo('Are you sure you want to continue? [y/n]: ');
+    if (!response) {
+      console.log('Aborting...');
+      process.exit(process.argv.includes('--no-exit-codes') ? 0 : 1);
+    }
+    console.log('Continuing...', '\n');
+  }
+
   if (process.argv[2] === 'inject') {
-    if (await main.inject(platformModule)) {
+    if (await main.inject(platformModule, platform)) {
       if (!process.argv.includes('--no-welcome-message')) {
         await writeFile(join(__dirname, '../src/__injected.txt'), 'hey cutie');
       }
@@ -33,7 +49,7 @@ try {
       console.log('You now have to completely close the Discord client, from the system tray or through the task manager.');
     }
   } else if (process.argv[2] === 'uninject') {
-    if (await main.uninject(platformModule)) {
+    if (await main.uninject(platformModule, platform)) {
       // @todo: prompt to (re)start automatically
       console.log(BasicMessages.UNPLUG_SUCCESS, '\n');
       console.log('You now have to completely close the Discord client, from the system tray or through the task manager.');
@@ -52,3 +68,21 @@ try {
     console.error('fucky wucky', e);
   }
 });
+
+async function promptYesNo(question) {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve, reject) => {
+    rl.question(question, answer => {
+      rl.close();
+      if (answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes') {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    });
+  });
+}
