@@ -2,10 +2,10 @@ const { readdir } = require('fs').promises;
 const { join } = require('path');
 
 const PATHS = {
-	stable: 'Discord',
-	ptb: 'DiscordPTB',
-	canary: 'DiscordCanary',
-	dev: 'DiscordDevelopment'
+  stable: 'Discord',
+  ptb: 'DiscordPTB',
+  canary: 'DiscordCanary',
+  dev: 'DiscordDevelopment'
 };
 
 exports.getAppDir = async (platform) => {

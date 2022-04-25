@@ -8,41 +8,41 @@ const { BasicMessages, AnsiEscapes } = require('./log');
 const homedir = execSync('grep $(logname) /etc/passwd | cut -d ":" -f6').toString().trim();
 
 const KnownLinuxPaths = {
-	stable: Object.freeze([
-		'/usr/share/discord',
-		'/usr/lib64/discord',
-		'/opt/discord',
-		'/opt/Discord',
-		`${homedir}/.local/bin/Discord`
-	]),
-	ptb: Object.freeze([
-		'/usr/share/discord-ptb',
-		'/usr/lib64/discord-ptb',
-		'/opt/discord-ptb',
-		'/opt/DiscordPTB',
-		`${homedir}/.local/bin/DiscordPTB`
-	]),
-	canary: Object.freeze([
-		'/usr/share/discord-canary',
-		'/usr/lib64/discord-canary',
-		'/opt/discord-canary',
-		'/opt/DiscordCanary',
-		`${homedir}/.local/bin/DiscordCanary` // https://github.com/powercord-org/powercord/pull/370
-	]),
-	dev: Object.freeze([
-		'/usr/share/discord-development',
-		'/usr/lib64/discord-development',
-		'/opt/discord-development',
-		'/opt/DiscordDevelopment',
-		`${homedir}/.local/bin/DiscordDevelopment`
-	])
+  stable: Object.freeze([
+    '/usr/share/discord',
+    '/usr/lib64/discord',
+    '/opt/discord',
+    '/opt/Discord',
+    `${homedir}/.local/bin/Discord`
+  ]),
+  ptb: Object.freeze([
+    '/usr/share/discord-ptb',
+    '/usr/lib64/discord-ptb',
+    '/opt/discord-ptb',
+    '/opt/DiscordPTB',
+    `${homedir}/.local/bin/DiscordPTB`
+  ]),
+  canary: Object.freeze([
+    '/usr/share/discord-canary',
+    '/usr/lib64/discord-canary',
+    '/opt/discord-canary',
+    '/opt/DiscordCanary',
+    `${homedir}/.local/bin/DiscordCanary` // https://github.com/powercord-org/powercord/pull/370
+  ]),
+  dev: Object.freeze([
+    '/usr/share/discord-development',
+    '/usr/lib64/discord-development',
+    '/opt/discord-development',
+    '/opt/DiscordDevelopment',
+    `${homedir}/.local/bin/DiscordDevelopment`
+  ])
 };
 
 const ProcessRegex = {
-	stable: /discord$/i,
-	ptb: /discord-?ptb$/i,
-	canary: /discord-?canary$/i,
-	dev: /discord-?development$/i
+  stable: /discord$/i,
+  ptb: /discord-?ptb$/i,
+  canary: /discord-?canary$/i,
+  dev: /discord-?development$/i
 }
 
 exports.getAppDir = async (platform) => {
