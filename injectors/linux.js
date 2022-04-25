@@ -41,7 +41,8 @@ const KnownLinuxPaths = {
 const ProcessRegex = {
 	stable: /discord$/i,
 	ptb: /discord-?ptb$/i,
-	canary: /discord-?canary$/i
+	canary: /discord-?canary$/i,
+	dev: /discord-?development$/i
 }
 
 exports.getAppDir = async (platform) => {
